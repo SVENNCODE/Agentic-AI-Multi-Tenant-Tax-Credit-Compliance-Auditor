@@ -1,14 +1,3 @@
-# Local containerized dev/demo stack for AI Audit Agent.
-#
-# This does NOT containerize Supabase -- the app talks to your hosted
-# Supabase project (or `supabase start`'s local stack, if you run one
-# separately). Set the SUPABASE_* / ANTHROPIC_API_KEY values in a
-# root-level `.env` file before running (see env.docker.example).
-#
-# Usage:
-#   cp env.docker.example .env   # fill in real values
-#   docker compose up --build
-
 services:
   backend:
     build:
@@ -46,7 +35,7 @@ services:
       args:
         NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
         NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY}
-        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000/api/v1}
     image: ai-audit-agent-frontend:local
     ports:
       - "3000:3000"
