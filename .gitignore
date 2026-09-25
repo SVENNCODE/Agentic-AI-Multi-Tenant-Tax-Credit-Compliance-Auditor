@@ -1,0 +1,34 @@
+# ---- Secrets: never commit real environment files ----
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+*.pem
+*.key
+
+# ---- Python ----
+venv/
+.venv/
+**/venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+**/.pytest_cache/
+
+# ---- Node / Next.js ----
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+out/
+*.tsbuildinfo
+
+# ---- Supabase CLI local state ----
+supabase/.branches/
+supabase/.temp/
+
+# ---- Prisma generated client (legacy) ----
+/generated/prisma

@@ -1,0 +1,56 @@
+# Local containerized dev/demo stack for AI Audit Agent.
+#
+# This does NOT containerize Supabase -- the app talks to your hosted
+# Supabase project (or `supabase start`'s local stack, if you run one
+# separately). Set the SUPABASE_* / ANTHROPIC_API_KEY values in a
+# root-level `.env` file before running (see env.docker.example).
+#
+# Usage:
+#   cp env.docker.example .env   # fill in real values
+#   docker compose up --build
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: ai-audit-agent-backend:local
+    ports:
+      - "8000:8000"
+    environment:
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:3000}
+      ENABLE_API_DOCS: ${ENABLE_API_DOCS:-false}
+      QUESTIONNAIRE_RATE_LIMIT: ${QUESTIONNAIRE_RATE_LIMIT:-5/minute}
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/')",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./ai-audit-agent
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+    image: ai-audit-agent-frontend:local
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
