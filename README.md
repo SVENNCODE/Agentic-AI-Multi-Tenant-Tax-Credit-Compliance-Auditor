@@ -99,26 +99,26 @@ Full templates are provided in `backend/.env.example` and `ai-audit-agent/.env.e
 
 ### Backend (`backend/.env`)
 
-| Variable | Description |
-| --- | --- |
-| `SUPABASE_URL` | Supabase project URL. |
-| `SUPABASE_ANON_KEY` | Public anon or publishable key, used to build per-user RLS-scoped clients. |
-| `SUPABASE_SERVICE_ROLE_KEY` | Server-only key that bypasses RLS. Never expose to the browser. |
-| `ANTHROPIC_API_KEY` | Server-only Anthropic API key. |
-| `ALLOWED_ORIGINS` | Comma-separated list of browser origins allowed to call the API. |
-| `ENABLE_API_DOCS` | Set to `true` only in local development to expose `/docs` and `/openapi.json`. |
-| `QUESTIONNAIRE_RATE_LIMIT` | Rate limit applied to `POST /api/v1/questionnaire/save`, for example `5/minute`. |
-| `MAX_REQUEST_BODY_BYTES` | Maximum accepted request body size in bytes. |
-| `TEST_USER_ID` | Used only by the manual integration scripts. |
+| Variable                    | Description                                                                      |
+| --------------------------- | -------------------------------------------------------------------------------- |
+| `SUPABASE_URL`              | Supabase project URL.                                                            |
+| `SUPABASE_ANON_KEY`         | Public anon or publishable key, used to build per-user RLS-scoped clients.       |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-only key that bypasses RLS. Never expose to the browser.                  |
+| `ANTHROPIC_API_KEY`         | Server-only Anthropic API key.                                                   |
+| `ALLOWED_ORIGINS`           | Comma-separated list of browser origins allowed to call the API.                 |
+| `ENABLE_API_DOCS`           | Set to `true` only in local development to expose `/docs` and `/openapi.json`.   |
+| `QUESTIONNAIRE_RATE_LIMIT`  | Rate limit applied to `POST /api/v1/questionnaire/save`, for example `5/minute`. |
+| `MAX_REQUEST_BODY_BYTES`    | Maximum accepted request body size in bytes.                                     |
+| `TEST_USER_ID`              | Used only by the manual integration scripts.                                     |
 
 ### Frontend (`ai-audit-agent/.env.local`)
 
-| Variable | Description |
-| --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Public site URL, used for auth redirects. |
-| `NEXT_PUBLIC_API_URL` | Backend base URL including the API prefix, for example `http://localhost:8000/api/v1`. |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL. |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Public Supabase key, embedded in browser JavaScript. |
+| Variable                               | Description                                                                            |
+| -------------------------------------- | -------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`                 | Public site URL, used for auth redirects.                                              |
+| `NEXT_PUBLIC_API_URL`                  | Backend base URL including the API prefix, for example `http://localhost:8000/api/v1`. |
+| `NEXT_PUBLIC_SUPABASE_URL`             | Supabase project URL.                                                                  |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Public Supabase key, embedded in browser JavaScript.                                   |
 
 ## Running Tests
 
