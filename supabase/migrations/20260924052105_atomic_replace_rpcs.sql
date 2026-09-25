@@ -1,13 +1,3 @@
--- =============================================================================
--- ATOMIC REPLACE RPCs (audit finding D2 / Task 3)
--- A PL/pgSQL function body always runs inside the caller's single
--- transaction: explicit BEGIN/COMMIT is not allowed inside a function, and is
--- not needed — if any statement raises, the WHOLE call (delete + insert) is
--- rolled back. This replaces the previous client-side delete-then-insert,
--- which could leave zero rows behind if the insert failed.
--- =============================================================================
-
--- ---- credit_evaluations: called only by the backend service role ------------
 create or replace function public.replace_credit_evaluations(
   p_user_id  uuid,
   p_tax_year integer,
@@ -28,15 +18,12 @@ begin
     raise exception 'p_rows must be a JSON array';
   end if;
 
-  -- Serialise concurrent submissions for the same user/year so two requests
-  -- cannot interleave their delete/insert pairs.
   perform pg_advisory_xact_lock(hashtextextended(p_user_id::text || ':' || p_tax_year::text, 0));
 
   delete from public.credit_evaluations
    where user_id = p_user_id
      and tax_year = p_tax_year;
 
-  -- user_id / tax_year come from the parameters, never from the row payload.
   insert into public.credit_evaluations (
     user_id, tax_year, source_type, federal_credit_code, nj_rule_code,
     treaty_country_code, status, reason, estimated_amount,
@@ -58,11 +45,10 @@ revoke all on function public.replace_credit_evaluations(uuid, integer, jsonb)
 grant execute on function public.replace_credit_evaluations(uuid, integer, jsonb)
   to service_role;
 
--- ---- visa_status_periods: called by the signed-in user (RLS applies) --------
 create or replace function public.replace_visa_status_periods(p_periods jsonb)
 returns integer
 language plpgsql
-security invoker            -- runs as the caller, so RLS policies still apply
+security invoker           
 set search_path = ''
 as $$
 declare

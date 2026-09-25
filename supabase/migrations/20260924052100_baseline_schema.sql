@@ -1,22 +1,3 @@
--- =============================================================================
--- BASELINE SCHEMA (reconstructed from application code on 2026-09-24)
--- =============================================================================
--- IMPORTANT — READ BEFORE PUSHING:
---   This file was reconstructed from the column names the backend reads and
---   writes, because the audit environment could not reach the live database.
---   It is written to be IDEMPOTENT (IF NOT EXISTS everywhere) so it is safe on
---   a fresh local database, but the LIVE schema is the real source of truth.
---
---   Recommended workflow against the existing hosted project:
---     supabase link --project-ref <ref>
---     supabase db pull                   # writes the exact live schema as a new migration
---       -> replace the body of THIS file with that output, delete the pulled copy
---     supabase migration repair --status applied 20260924052100
---                                        # mark baseline as already applied remotely
---     supabase db push                   # applies only the migrations after it
--- =============================================================================
-
--- ---- Enums -----------------------------------------------------------------
 do $$ begin
   create type public.visa_type_enum as enum
     ('F1','J1','M1','Q1','H1B','OPT','OTHER','NONE');
@@ -27,7 +8,6 @@ do $$ begin
     ('NONRESIDENT_ALIEN','RESIDENT_ALIEN','DUAL_STATUS');
 exception when duplicate_object then null; end $$;
 
--- ---- User-owned tables -----------------------------------------------------
 create table if not exists public.profiles (
   user_id             uuid primary key references auth.users(id) on delete cascade,
   citizenship_country text,
@@ -72,7 +52,6 @@ create table if not exists public.visa_status_periods (
   created_at       timestamptz not null default now()
 );
 
--- ---- Backend-authored results (written only by the service role) ------------
 create table if not exists public.residency_determinations (
   id                         uuid primary key default gen_random_uuid(),
   user_id                    uuid not null references auth.users(id) on delete cascade,
@@ -110,7 +89,6 @@ create table if not exists public.credit_evaluations (
 create index if not exists credit_evaluations_user_year_idx
   on public.credit_evaluations (user_id, tax_year);
 
--- ---- Reference / rule tables (read-only for end users) ---------------------
 create table if not exists public.spt_rules (
   tax_year              integer primary key,
   min_current_year_days integer not null,
