@@ -136,6 +136,35 @@ cd supabase/tests
 npm install
 node db.test.mjs ../migrations
 ```
+Screen 1 - Login
+<img width="1917" height="903" alt="Screenshot 2026-09-24 235740" src="https://github.com/user-attachments/assets/886edb01-de44-4dd3-be16-abe2d37458b0" />
+
+Screen 1.5 - SignUp
+<img width="1917" height="906" alt="Screenshot 2026-09-25 001910" src="https://github.com/user-attachments/assets/07f73a41-2f4c-4c8d-8371-4776b35d351b" />
+
+Screen 2 - Profile
+<img width="1897" height="907" alt="Screenshot 2026-09-25 000350" src="https://github.com/user-attachments/assets/772612ad-5336-4cdd-adf3-8ed2c7c5b2a7" />
+
+Screen 3 - Income
+<img width="1917" height="910" alt="Screenshot 2026-09-25 000436" src="https://github.com/user-attachments/assets/e9106cbb-bbad-49bf-af0f-4c2b93c7016e" />
+
+Screen 4 - Expenses
+<img width="1917" height="907" alt="Screenshot 2026-09-25 000508" src="https://github.com/user-attachments/assets/80a7247c-bee8-40d0-862c-21a7f48d260e" />
+
+Screen 4.5 - Education Expenses
+<img width="1892" height="903" alt="Screenshot 2026-09-25 000535" src="https://github.com/user-attachments/assets/2b383620-cc03-4dc8-94a0-d9d63d430928" />
+
+Screen 5 - Review and Submit
+<img width="1915" height="907" alt="Screenshot 2026-09-25 000615" src="https://github.com/user-attachments/assets/5f6fc37b-3036-44fb-b6bd-0eb5f653209c" />
+
+Screen 6 -  DashBoard
+<img width="1900" height="903" alt="Screenshot 2026-09-25 000931" src="https://github.com/user-attachments/assets/67d7aefa-b317-45c9-bff0-6508517950f0" />
+
+Screen 7 - Credit Hub
+<img width="1900" height="911" alt="Screenshot 2026-09-25 001013" src="https://github.com/user-attachments/assets/379fc661-8576-48d4-a0a8-17fec8f332f1" />
+
+Screen 8 - Action Center
+<img width="1917" height="908" alt="Screenshot 2026-09-25 001039" src="https://github.com/user-attachments/assets/b8c725ad-8615-430c-b923-427b3bdcba28" />
 
 ## License
 
